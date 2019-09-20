@@ -8,7 +8,7 @@ export const getImages=(imgArr)=>({
 
 export const getGalleryFromServer = (userId, limit) =>{
     return function(dispatch){
-        return axios.get("/home/get-url-by-date/"+userId).then(function(response){
+        return axios.get("/public/get-url-by-date/"+userId).then(function(response){
             console.log("Inside getGalleryFromServer ", response);
             if(response.data.payload){
                 dispatch(getImages(response.data.payload))

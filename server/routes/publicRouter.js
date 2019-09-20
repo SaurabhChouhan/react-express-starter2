@@ -41,7 +41,11 @@ publicRouter.post("/login", passport.authenticate('local'), async (req, res, nex
         if (loginErr) {
             return next(loginErr);
         }
-        res.payload= req.user
+        res.send({
+            success: true,
+            payload: req.user
+        })
+
     });
     next();
 })
@@ -89,7 +93,16 @@ publicRouter.get("/get-url/:userId/:limit", async (req, res, next) => {
 publicRouter.get("/get-url-by-date/:userId", async (req, res, next) => {
     console.log("Inside /get-url-by-date ", req.params);
     let data = await GalleryModel.getImagesByDate(req.params.userId)
-    res.payload= data
+    if (data.length > 0)
+        res.send({
+            success: true,
+            payload: data
+        })
+    else
+        res.send({
+            succes: false,
+            error: data
+        })
 })
 
 export default publicRouter;

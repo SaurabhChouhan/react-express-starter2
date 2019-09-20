@@ -10,14 +10,19 @@ class GalleryList extends React.Component {
         console.log(data)
         let date = new Date(data.data.date)
         this.dialog.show({
-            title: <div className="text-center">
-                <h4 >{data.data.name}</h4>
-                <p className="para">
-                {date.getDate()}/{date.getMonth() + 1}/{date.getFullYear()}&nbsp;
+            title: <div className="row">
+                <div className="col-md-10 text-center">
+                    <h4 >{data.data.name}</h4>
+                    <p className="para">
+                        {date.getDate()}/{date.getMonth() + 1}/{date.getFullYear()}&nbsp;
                 {date.getHours()}:{date.getMinutes()}
-                </p>
+                    </p>
+                </div>
+                <div className = "col-md-2">
+                        <button className="btn btn-link logoutBtn close" onClick={() => { this.dialog.onHide() }}>X</button>
+                    </div>
             </div>,
-            body: <div className="container" style={{   overflow: 'auto' }}>
+            body: <div className="container" style={{ overflow: 'auto' }}>
                 <img className="image-dialog" src={data.data.url} />
             </div>,
             bsSize: 'md',
@@ -38,7 +43,7 @@ class GalleryList extends React.Component {
                                 <div className="imgList">
                                     {e.gallery.map((data) =>
                                         <div onClick={() => { this.showImageDialog({ data }) }}>
-                                            <img className="img" src={data.url}/>{/*  height="100" width="100"/> */}
+                                            <img className="img" src={data.url} />{/*  height="100" width="100"/> */}
                                         </div>
                                     )}
                                 </div>
