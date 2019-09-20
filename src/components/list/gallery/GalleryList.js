@@ -25,7 +25,7 @@ class GalleryList extends React.Component {
             body: <div className="container" style={{ overflow: 'auto' }}>
                 <img className="image-dialog" src={data.data.url} />
             </div>,
-            bsSize: 'md',
+            bsSize: 'lg',
         })
     }
     render() {
