@@ -4,7 +4,7 @@ import passport from "passport"
 import path from 'path';
 import cors from 'cors'
 import cookieParser from 'cookie-parser'
-import publicRouter from "./routes/publicRouter"
+import apiRouter from './routes/apiRouter';
 
 var app = express()
 
@@ -15,31 +15,38 @@ app.use(express.json());
 app.use(express.urlencoded({extended:false}))
 app.use(cookieParser());
 app.use(cors())
-// app.use(async (ctx)=>{
-//     console.log("First")
-// });
+
+// authentication
+require('./auth')
+app.use(passport.initialize())
+app.use(passport.session())
 
 app.use(express.static(path.join(__dirname, 'build')))
 
-app.use("/public", publicRouter)
+app.use("/", apiRouter)
 mongoose.connect('mongodb://localhost:27017/cloud-printing', { useNewUrlParser: true, useFindAndModify: false, useCreateIndex: true }, async ctx=>{
     console.log("database connection is successful")
 })
 
-// error handler
-app.use(function (err, req, res, next) {
+// catch 404 and forward to error handler
+app.use(function (req, res, next) {
+    next(createError(404));
+  });
+  
+  // error handler
+  app.use(function (err, req, res, next) {
     console.log("error caught ", err)
     // set locals, only providing error in development
     res.locals.message = err.message;
     res.locals.error = req.app.get('env') === 'development' ? err : {};
-
+  
     // render the error page
     res.status(err.status || 500);
-
-    // returning error in json
+  
+    // returning error in json 
     res.json({ success: false, status: res.status, message: err.message })
-});
-app.listen(3000, ()=>{
-    console.log("Server Started on 3000");
+  });
+app.listen(3002, ()=>{
+    console.log("Server Started on 3002");
 })
 module.exports= app;

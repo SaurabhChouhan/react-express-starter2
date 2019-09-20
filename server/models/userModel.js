@@ -13,13 +13,14 @@ userSchema.statics.getAllUsers= async ()=>{
 }
 
 userSchema.statics.createUser = async(userInput)=>{
+    userInput.email = userInput.email.toLowerCase();
     let count = await UserModel.countDocuments({email:userInput.email});
     if(count)
         return "email id is already present";
 
     userInput.password = await bcrypt.hash(userInput.password, 10);
     let createdUser = await UserModel.create(userInput);
-    console.log(createdUser)
+    console.log("Created User ", createdUser);
     return {
         _id: createdUser._id,
         fullName: createdUser.fullName,
@@ -27,18 +28,21 @@ userSchema.statics.createUser = async(userInput)=>{
     };
 }
 
-userSchema.statics.verifyUser = async(userInput)=>{
-    let user = await UserModel.findOne({"email": userInput.email})
+userSchema.statics.verifyUser = async(email, password)=>{
+    email = email.toLowerCase();
+    let user = await UserModel.findOne({"email": email})
     if(!user)
-        return "Invalid email id"
-    let result = await bcrypt.compare(userInput.password, user.password)
+        // return "Invalid email id"
+        return false;
+    let result = await bcrypt.compare(password, user.password)
     if (result)
         return {
             _id: user._id,
             fullName: user.fullName,
             email: user.email
         };
-    return "Invalid password"
+    // return "Invalid password"
+    return false
 
 }
 const UserModel = mongoose.model("User", userSchema)
