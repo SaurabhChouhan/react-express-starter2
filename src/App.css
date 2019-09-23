@@ -31,6 +31,8 @@ body{
   min-width: 50px;
   min-height: 50px;
 }
+
+
 .loginFormParent {
   background: #fff;
   padding: 20px;
@@ -52,6 +54,7 @@ body{
   border-radius: 4px;
 }
 
+ /* css for header.js */
 .main-header {
   min-height: 60px;
 }
@@ -76,10 +79,12 @@ button.btn.btn-link.logoutBtn{
   color: #313030;
   text-decoration: none;
 }
-.modal-title {
-  display: block;
+
+/* css for image dialog */
+.dialog-alignment{
+  text-align: center;
   margin-left: auto;
-  margin-right: auto;
+  /* margin-right: auto; */
 }
 .image-dialog{
   display: block;
