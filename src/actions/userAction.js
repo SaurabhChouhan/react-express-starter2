@@ -20,7 +20,7 @@ export const loginUserOnServer = (formInput)=>{
             if(response.data.success){
                 console.log("Inside LoginUserOnServer ", response)
                 dispatch(addLoginUser(response.data.payload))
-                dispatch(getGalleryFromServer(response.data.payload._id, 5))
+                dispatch(getGalleryFromServer(response.data.payload._id))
                 NotificationManager.success("Login Successful")
             }
             else

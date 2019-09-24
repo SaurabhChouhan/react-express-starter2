@@ -1,6 +1,5 @@
 import React from "react";
-import Dialog from "react-bootstrap-dialog";
-import { Modal, Button } from 'react-bootstrap'
+import { Modal } from 'react-bootstrap'
 
 class GalleryList extends React.Component {
     constructor() {
@@ -49,51 +48,56 @@ class GalleryList extends React.Component {
     }
     render() {
         console.log("this.state ", this.state)
+        console.log("list is ", this.props.list)
         return (
             <>
                 {/* <Dialog ref={(el) => {
                     this.dialog = el
                 }} /> */}
-                {this.state.showModal &&
-                    <Modal show={this.state.showModal} onHide={this.close} centered>
-                        <Modal.Header closeButton>
-                            <div className="dialog-alignment">
-                                <Modal.Title>
+                {this.props.list && this.props.list.length > 0 ?
+                    <div>
+                        {this.state.showModal &&
+                            <Modal show={this.state.showModal} onHide={this.close} centered>
+                                <Modal.Header closeButton>
+                                    <div className="dialog-alignment">
+                                        <Modal.Title>
 
-                                    {this.state.data.name}
-                                    <p className="para">
-                                        {this.state.date.getDate()}/{this.state.date.getMonth() + 1}/{this.state.date.getFullYear()}&nbsp;
+                                            {this.state.data.name}
+                                            <p className="para">
+                                                {this.state.date.getDate()}/{this.state.date.getMonth() + 1}/{this.state.date.getFullYear()}&nbsp;
                                                 {this.state.date.getHours()}:{this.state.date.getMinutes()}
-                                    </p>
+                                            </p>
 
-                                </Modal.Title>
-                            </div>
-                        </Modal.Header>
-                        <Modal.Body>
-                            <div className="container" style={{ overflow: 'auto' }}>
-                                <img className="image-dialog" src={this.state.data.url} />
-                            </div>
-                        </Modal.Body>
-                        <Modal.Footer>
-                            {/* <Button onClick={this.close}>Close</Button> */}
-                        </Modal.Footer>
-                    </Modal>}
-                <div className="galleryList">
-                    {this.props.list.map((e) => {
-                        let date = new Date(e.date)
-                        return (
-                            <div id="gallery">
-                                <p>{date.getDate()}/{date.getMonth() + 1}/{date.getFullYear()}</p>
-                                <div className="imgList">
-                                    {e.gallery.map((data) =>
-                                        <div >
-                                            <img className="img" src={data.url} onClick={() => { this.open(data) }} />
+                                        </Modal.Title>
+                                    </div>
+                                </Modal.Header>
+                                <Modal.Body>
+                                    <div className="container" style={{ overflow: 'auto' }}>
+                                        <img className="image-dialog" src={this.state.data.url} />
+                                    </div>
+                                </Modal.Body>
+                                <Modal.Footer>
+                                    {/* <Button onClick={this.close}>Close</Button> */}
+                                </Modal.Footer>
+                            </Modal>}
+                        <div className="galleryList">
+                            {this.props.list.map((e) => {
+                                let date = new Date(e.date)
+                                return (
+                                    <div id="gallery">
+                                        <p>{date.getDate()}/{date.getMonth() + 1}/{date.getFullYear()}</p>
+                                        <div className="imgList">
+                                            {e.gallery.map((data) =>
+                                                <div >
+                                                    <img className="img" src={data.url} onClick={() => { this.open(data) }} />
+                                                </div>
+                                            )}
                                         </div>
-                                    )}
-                                </div>
-                            </div>)
-                    })}
-                </div>
+                                    </div>)
+                            })}
+                        </div>
+                    </div> : <div className="msg">No Images are Available</div>
+                }
             </>
         );
     }

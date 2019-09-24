@@ -6,11 +6,11 @@ export const getImages=(imgArr)=>({
     imgArr
 })
 
-export const getGalleryFromServer = (userId, limit) =>{
+export const getGalleryFromServer = (userId) =>{
     return function(dispatch){
         return axios.get("/public/get-url-by-date/"+userId).then(function(response){
             console.log("Inside getGalleryFromServer ", response);
-            if(response.data.payload){
+            if(response.data.success){
                 dispatch(getImages(response.data.payload))
             }
         })

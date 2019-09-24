@@ -31,6 +31,10 @@ body{
   min-width: 50px;
   min-height: 50px;
 }
+.msg {
+  text-align: center;
+  margin: 10% 25%;
+}
 
 
 .loginFormParent {
