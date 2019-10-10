@@ -3,6 +3,7 @@ import { Route, Switch, Redirect } from "react-router-dom"
 import LoginFormContainer from "../form/login/LoginFormContainer";
 import GalleryListContainer, { } from "../list/gallery/GalleryListContainer";
 import HeaderContainer from "../Header/HeaderContainer";
+import RegistrationFormContainer from "../form/registration/RegistrationFormContainer";
 
 class AppRouter extends React.Component {
     render() {
@@ -19,6 +20,9 @@ class AppRouter extends React.Component {
                         if (this.props.isAuthenticated && this.props.loggedInUser)
                             return <Redirect to="/home" />
                         return <LoginFormContainer />
+                    }} />
+                    <Route key="registration-route" path="/registration" exact render={() => {
+                        return <RegistrationFormContainer />
                     }} />
                 </Switch>
             </>

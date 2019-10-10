@@ -17,7 +17,7 @@ class Header extends React.Component {
                                 </div>
                             }
                             <div className="image-dialog">
-                                <h2>CloudPrinter Vendor</h2>
+                                <h2>React Snippet</h2>
                             </div>
                             {props.isAuthenticated &&
                                 <div className="col-md-2 header-logout-section">

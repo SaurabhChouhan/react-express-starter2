@@ -12,6 +12,11 @@ export const logOutUser = ()=>({
     type: AC.LOGOUT_USER
 })
 
+export const addRegisteredUser = (user)=> ({
+    type: AC.REGISTERED_USER,
+    user
+})
+
 export const loginUserOnServer = (formInput)=>{
     console.log(formInput)
     return function(dispatch){
@@ -22,6 +27,25 @@ export const loginUserOnServer = (formInput)=>{
                 dispatch(addLoginUser(response.data.payload))
                 dispatch(getGalleryFromServer(response.data.payload._id))
                 NotificationManager.success("Login Successful")
+            }
+            else
+                NotificationManager.error(response.data.error);
+        }).catch((e)=>{
+            console.log("error", e)
+            NotificationManager.error(e)
+        })
+    }
+}
+
+export const registerUserOnServer = (formInput)=>{
+    console.log(formInput)
+    return function(dispatch){
+        return axios.post("/public/register", formInput).then(function(response){
+            console.log(response)
+            if(response.data.success){
+                console.log("Inside registerUserOnServer ", response)
+                dispatch(addRegisteredUser(response.data.payload))
+                NotificationManager.success("Registration Successful")
             }
             else
                 NotificationManager.error(response.data.error);
